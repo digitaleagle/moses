@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:moses/themeData.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,12 +17,11 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
-        backgroundColor: ThemeColors().primary,
+        title: const Text('Landmark Baptist Church'),
         actions: <Widget> [
           Container(
             padding: const EdgeInsets.all(5),
-            child: Image.asset('assets/images/lbc_logo.png')
+            child: Image.asset('assets/images/lbc_logo_outlined.png')
           )
         ],
       ),
@@ -32,21 +30,57 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: <Widget> [
             DrawerHeader(
-              decoration: BoxDecoration(color: ThemeColors().primary),
-                child: Text('DRAWER')
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: const [0,1],
+                  colors: [
+                    const Color.fromRGBO(111, 233, 17, 0),
+                    ThemeColors().secondary,
+                  ]
+                )
+              ),
+                child: Image.asset('assets/images/lbc_title.png')
             ),
             ListTile(
-              title: Text('Page 1'),
+              leading: const Icon(Icons.supervised_user_circle),
+              title: const Text('Visitor Information'),
+              onTap: () {
+
+              },
             ),
             ListTile(
-              title: Text('Page 2'),
+              leading: const Icon(Icons.event),
+              title: const Text('Services and Events'),
+              onTap: () {
+
+              },
             ),
             ListTile(
-              title: Text('Page 3'),
+              leading: const Icon(Icons.business),
+              title: const Text('Ministries and Organization Information'),
+              onTap: () {
+
+              },
             ),
             ListTile(
-              leading: Icon(Icons.close),
-              title: Text('Close'),
+              leading: const Icon(Icons.login),
+              title: const Text('Login to your Ministry'),
+              onTap: () {
+                Navigator.pushNamed(context, '/ministryLoginSelection');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text('About Landmark Baptist Church'),
+              onTap: () {
+
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.arrow_back),
+              title: const Text('Back'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -65,8 +99,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Card(
                     child: SizedBox(
-                      height: 155,
-                      width: width - 115,
+                      height: width * 0.15 + 5,
+                      width: width * 0.90 + 5, //90% width
                       child: DecoratedBox(
                         decoration: BoxDecoration(color: ThemeColors().secondary),
                       ),
@@ -75,35 +109,12 @@ class _HomePageState extends State<HomePage> {
                   Card(
                     child: InkWell(
                       onTap: () {},
-                      child: SizedBox(
-                        height: 150,
-                        width: width - 120,
-                        child: Stack(
-                          children: <Widget> [
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Container(
-                                padding: const EdgeInsets.fromLTRB(50, 10, 0, 0),
-                                child: Text(
-                                  'Are you a visitor?',
-                                  style: GoogleFonts.gotu(
-                                    textStyle: const TextStyle(fontSize: 25)
-                                  )
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: Container(
-                                padding: const EdgeInsets.fromLTRB(0, 75, 0, 0),
-                                child: Text(
-                                  'Learn more about Landmark Baptist Church here.',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                      child: SizedBox(          //1:6 ratio
+                        height: width * 0.15,   //15% width
+                        width: width * 0.90,    //90% width
+                        child: Image.asset( //Image is temporarily hardcoded.
+                          'assets/images/visitor_portal_cover.png'
+                        )
                       ),
                     ),
                   ),

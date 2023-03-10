@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Login'),
-          backgroundColor: ThemeColors().primary,
+          //backgroundColor: ThemeColors().primary,
         ),
 
         body: Center(
@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
                     obscureText: false,
                     controller: user,
                     decoration: InputDecoration(
-                      labelStyle: TextStyle(color: ThemeColors().secondary),
+                      floatingLabelStyle: TextStyle(color: ThemeColors().secondary),
                       border: const OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: ThemeColors().secondary)
@@ -71,11 +71,11 @@ class _LoginState extends State<Login> {
                           obscureText: hidePass,
                           controller: pass,
                           decoration: InputDecoration(
-                            labelStyle: TextStyle(color: ThemeColors().secondary),
+                            floatingLabelStyle: TextStyle(color: ThemeColors().secondary),
                             border: const OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: ThemeColors().secondary)
-                            ),
+                             focusedBorder: OutlineInputBorder(
+                                 borderSide: BorderSide(color: ThemeColors().secondary)
+                             ),
                             labelText: 'Password',
                           ),
                           onChanged: (newValue) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'homePage.dart';
 import 'login.dart';
+import 'ministryLoginSelection.dart';
+import 'themeData.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -20,13 +22,14 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         title: 'Moses',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: ThemeColors().primary,
         ),
 
-        initialRoute: "/login",
+        initialRoute: "/homePage",
         routes: {
           "/homePage": (context) => const HomePage(),
           "/login": (context) => const Login(),
+          "/ministryLoginSelection": (context) => const MinistryLoginSelection(),
         }
     );
   }
