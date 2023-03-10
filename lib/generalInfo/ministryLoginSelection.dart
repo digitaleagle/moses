@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moses/temporaryTestData.dart';
+import 'package:moses/documentationInfo/temporaryTestData.dart';
 
 class MinistryLoginSelection extends StatefulWidget {
   const MinistryLoginSelection({Key? key}) : super(key: key);

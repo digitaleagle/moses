@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'homePage.dart';
+import 'package:moses/generalInfo/homePage.dart';
 import 'login.dart';
-import 'ministryLoginSelection.dart';
+import 'package:moses/generalInfo/ministryLoginSelection.dart';
 import 'themeData.dart';
 
 void main() async {

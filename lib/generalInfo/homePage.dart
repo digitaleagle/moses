@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moses/themeData.dart';
+import 'package:moses/documentationInfo/themeData.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
