@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:moses/generalInfo/homePage.dart';
-import 'login.dart';
+import 'package:moses/youthGroup/seekersHomePage.dart';
+import 'package:moses/documentationInfo/login.dart';
 import 'package:moses/generalInfo/ministryLoginSelection.dart';
-import 'themeData.dart';
+import 'package:moses/documentationInfo/themeData.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -27,9 +28,15 @@ class _MyAppState extends State<MyApp> {
 
         initialRoute: "/homePage",
         routes: {
+          //General Information:
           "/homePage": (context) => const HomePage(),
-          "/login": (context) => const Login(),
           "/ministryLoginSelection": (context) => const MinistryLoginSelection(),
+
+          //Youth Group:
+          "/seekersHomePage": (context) => const SeekersHomePage(),
+
+          //Unassigned:
+          "/login": (context) => const Login(),
         }
     );
   }

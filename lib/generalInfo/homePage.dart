@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    //Load list of advertisements from database.
 
     return Scaffold(
       appBar: AppBar(
@@ -92,6 +93,7 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Container(
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+          //Set to ListView.builder and load list of adds from database.
           child: ListView(
             children: <Widget> [
               Stack(

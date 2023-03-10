@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeColors {
+  //Earth Blue
   MaterialColor primary = MaterialColor(const Color.fromRGBO(27, 116, 204, 1).value, const <int, Color>{
       50: Color.fromRGBO(27, 116, 204, 0.1),
       100: Color.fromRGBO(27, 116, 204, 0.2),
@@ -24,6 +25,7 @@ class ThemeColors {
     },
   );
 
-  Color secondary = const Color.fromRGBO(111, 233, 17, 1);
+  Color secondary = const Color.fromRGBO(111, 233, 17, 1);  //Earth Green
+  Color seekersTheme = const Color.fromRGBO(51, 51, 51, 1);   //80% Grey
 }
 

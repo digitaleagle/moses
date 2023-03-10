@@ -14,7 +14,6 @@ class _MinistryLoginSelectionState extends State<MinistryLoginSelection> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
     //For now, this page uses a hardcoded list: testPrograms
     //This page needs to load the list of ministries from the database.
 
@@ -42,7 +41,12 @@ class _MinistryLoginSelectionState extends State<MinistryLoginSelection> {
                       width: (width-80)/3,
                       height: (width-80)/3,
                       child: Card(
-                        child: Center(child: Text(testPrograms[3*index].title)),
+                        child: InkWell(
+                          onTap: () { //Temporary testing navigation
+                            Navigator.pushNamed(context, '/seekersHomePage');
+                          },
+                          child: Center(child: Text(testPrograms[3*index].title)),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 20,),
@@ -50,7 +54,12 @@ class _MinistryLoginSelectionState extends State<MinistryLoginSelection> {
                       width: (width-80)/3,
                       height: (width-80)/3,
                       child: 3*index+1 >= testPrograms.length ? null: Card(
-                        child: Center(child: Text(testPrograms[3*index+1].title)),
+                        child: InkWell(
+                          onTap: () { //Temporary testing navigation
+                            Navigator.pushNamed(context, '/seekersHomePage');
+                          },
+                          child: Center(child: Text(testPrograms[3*index+1].title)),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 20,),
@@ -58,7 +67,12 @@ class _MinistryLoginSelectionState extends State<MinistryLoginSelection> {
                       width: (width-80)/3,
                       height: (width-80)/3,
                       child: 3*index+2 >= testPrograms.length ? null: Card(
-                        child: Center(child: Text(testPrograms[3*index+2].title)),
+                        child: InkWell(
+                          onTap: () { //Temporary testing navigation
+                            Navigator.pushNamed(context, '/seekersHomePage');
+                          },
+                          child: Center(child: Text(testPrograms[3*index+2].title)),
+                        ),
                       ),
                     ),
                   ],
