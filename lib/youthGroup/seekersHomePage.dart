@@ -48,36 +48,29 @@ class _SeekersHomePageState extends State<SeekersHomePage> {
                 child: Image.asset('assets/images/lbc_title.png')
             ),
             ListTile(
-              leading: const Icon(Icons.supervised_user_circle),
-              title: const Text('Visitor Information'),
-              onTap: () {
-
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.event),
-              title: const Text('Services and Events'),
+              title: const Text('Upcoming Events'),
               onTap: () {
 
               },
             ),
             ListTile(
-              leading: const Icon(Icons.business),
-              title: const Text('Ministries and Organization Information'),
+              leading: const Icon(Icons.message),
+              title: const Text('Messaging'),
               onTap: () {
 
               },
             ),
             ListTile(
-              leading: const Icon(Icons.login),
-              title: const Text('Login to your Ministry'),
+              leading: const Icon(Icons.task_alt),
+              title: const Text('Tasks and Devotions'),
               onTap: () {
-                Navigator.pushNamed(context, '/ministryLoginSelection');
+
               },
             ),
             ListTile(
               leading: const Icon(Icons.info),
-              title: const Text('About Landmark Baptist Church'),
+              title: const Text('About Seekers'),
               onTap: () {
 
               },
@@ -101,13 +94,16 @@ class _SeekersHomePageState extends State<SeekersHomePage> {
                 //For now, the card it hardcoded.
                 //When testList actually loads data from database, card should be designed.
                 //It needs an image and a route.
-               return Card(
-                 child: InkWell(
-                   onTap: () {},
-                   child: SizedBox(          //1:6 ratio
-                       height: width * 0.15,   //15% width
-                       width: width * 0.90,    //90% width
-                       child: Center(child: Text('Test add $index'))
+               return Container(
+                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                 child: Card(
+                   child: InkWell(
+                     onTap: () {},
+                     child: SizedBox(          //1:6 ratio
+                         height: width * 0.15,   //15% width
+                         width: width * 0.90,    //90% width
+                         child: Center(child: Text('Test add $index'))
+                     ),
                    ),
                  ),
                );

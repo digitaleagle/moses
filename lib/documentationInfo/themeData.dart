@@ -25,7 +25,7 @@ class ThemeColors {
     },
   );
 
-  Color secondary = const Color.fromRGBO(111, 233, 17, 1);  //Earth Green
-  Color seekersTheme = const Color.fromRGBO(51, 51, 51, 1);   //80% Grey
+  Color secondary = const Color.fromRGBO(111, 233, 17, 1);    //Earth Green
+  Color seekersTheme = const Color.fromRGBO(73, 73, 73, 1);   //~75% Grey
 }
 
