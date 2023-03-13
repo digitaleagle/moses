@@ -69,7 +69,11 @@ class _MinistryLoginSelectionState extends State<MinistryLoginSelection> {
                       child: 3*index+2 >= testPrograms.length ? null: Card(
                         child: InkWell(
                           onTap: () { //Temporary testing navigation
-                            Navigator.pushNamed(context, '/seekersHomePage');
+                            if(testPrograms[3*index+2].title == "Administration") {
+                              Navigator.pushNamed(context, '/login');
+                            } else {
+                              Navigator.pushNamed(context, '/seekersHomePage');
+                            }
                           },
                           child: Center(child: Text(testPrograms[3*index+2].title)),
                         ),
