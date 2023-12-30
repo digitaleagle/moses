@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:moses/documentationInfo/themeData.dart';
 
@@ -9,6 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late FirebaseFirestore _db;
 
   @override
   Widget build(BuildContext context) {
@@ -121,11 +123,64 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ],
-              )
+              ),
+              Card(
+                child: SizedBox(
+                  height: width * 0.15,   //15% width
+                  width: width * 0.90,    //90% width
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FutureBuilder<String>(
+                        future: loadFirebaseMessage(),
+                        builder: (context, snapshot) {
+                          if(snapshot.hasError) {
+                            return Text("Error: ${snapshot.error}");
+                          }
+                          if(snapshot.hasData) {
+                            return Text(snapshot.data ?? "");
+                          }
+                          return const CircularProgressIndicator();
+                        },
+                    ),
+                    //  From what I understand, the .snapshot() and using the
+                    //    StreamBuilder would allow you to accept updates, and would
+                    //    be better for data that you want to change often.
+                    // child: StreamBuilder<QuerySnapshot>(
+                    //   stream: FirebaseFirestore.instance.collection("font-page").snapshots(),
+                    //   builder: (context, snapshop) {
+                    //     if(!snapshop.hasData) return LinearProgressIndicator();
+                    //     return Text(snapshop.data!.docs.first.data().toString());
+                    //   },
+                    // )
+                  ),
+                ),
+              ),
             ],
           ),
         )
       ),
     );
+  }
+
+  Future<String> loadFirebaseMessage() async {
+    // Used the read section from https://firebase.google.com/docs/firestore/quickstart#dart
+    // Another good resource: https://www.youtube.com/watch?v=DqJ_KjFzL9I
+
+    // Note: this was supposed to say "front-page", but I mistyped it.  You can't rename, so I
+    //       won't worry about fixing it for now.
+    final docSnap = await _db.collection("font-page").doc("announcements").get();
+    var data = docSnap.data();
+    if(data == null) {
+      return "??";
+    } else {
+      return data!["message"];
+    }
+  }
+
+  @override
+  void initState() {
+    // from https://firebase.google.com/docs/firestore/quickstart#dart
+    //  I really don't need this.  I could just use this in the loadFirebaseMessage() function
+    _db = FirebaseFirestore.instance;
   }
 }
