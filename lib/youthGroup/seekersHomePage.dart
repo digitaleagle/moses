@@ -58,7 +58,7 @@ class _SeekersHomePageState extends State<SeekersHomePage> {
               leading: const Icon(Icons.message),
               title: const Text('Messaging'),
               onTap: () {
-
+                Navigator.pushNamed(context, '/seekersMessaging');
               },
             ),
             ListTile(
@@ -73,6 +73,13 @@ class _SeekersHomePageState extends State<SeekersHomePage> {
               title: const Text('About Seekers'),
               onTap: () {
 
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('To LBC Home'),
+              onTap: () {
+                Navigator.popUntil(context, ModalRoute.withName('/homePage'));
               },
             ),
             ListTile(
