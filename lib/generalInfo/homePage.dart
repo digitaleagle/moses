@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
     if(data == null) {
       return "??";
     } else {
-      return data!["message"];
+      return data["message"];
     }
   }
 

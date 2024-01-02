@@ -4,14 +4,14 @@ import 'package:moses/documentationInfo/themeData.dart';
 
 import 'documentation.dart';
 
-class SeekersMessaging extends StatefulWidget {
-  const SeekersMessaging({Key? key}) : super(key: key);
+class Threads extends StatefulWidget {
+  const Threads({Key? key}) : super(key: key);
 
   @override
-  State<SeekersMessaging> createState() => _SeekersMessagingState();
+  State<Threads> createState() => _ThreadsState();
 }
 
-class _SeekersMessagingState extends State<SeekersMessaging> {
+class _ThreadsState extends State<Threads> {
 
   late FirebaseFirestore _db;
   @override
@@ -42,30 +42,30 @@ class _SeekersMessagingState extends State<SeekersMessaging> {
       ),
 
       body: FutureBuilder<List<ThreadIndicator>>(
-        future: loadFirebaseThreads(),
-        builder: (context, snapshot) {
-          if(snapshot.hasError) {
-            return Text("Error: ${snapshot.error}");
+          future: loadFirebaseThreads(),
+          builder: (context, snapshot) {
+            if(snapshot.hasError) {
+              return Text("Error: ${snapshot.error}");
+            }
+            if(snapshot.hasData && snapshot.data != null) {
+              return Center(
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: ListView.builder(
+                      itemBuilder: (_, index) {
+                        //For now, the list of message threads is hardcoded.
+                        return ListTile(
+                          title: Text(snapshot.data![index].name),
+                          subtitle: Text(snapshot.data![index].description),
+                        );
+                      },
+                      itemCount: snapshot.data!.length,
+                    ),
+                  )
+              );
+            }
+            return const CircularProgressIndicator();
           }
-          if(snapshot.hasData && snapshot.data != null) {
-            return Center(
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: ListView.builder(
-                    itemBuilder: (_, index) {
-                      //For now, the list of message threads is hardcoded.
-                      return ListTile(
-                        title: Text(snapshot.data![index].name),
-                        subtitle: Text(snapshot.data![index].description),
-                      );
-                    },
-                    itemCount: snapshot.data!.length,
-                  ),
-                )
-            );
-          }
-          return const CircularProgressIndicator();
-        }
       ),
     );
   }

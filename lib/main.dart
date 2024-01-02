@@ -9,6 +9,7 @@ import 'package:moses/documentationInfo/login.dart';
 import 'package:moses/generalInfo/ministryLoginSelection.dart';
 import 'package:moses/documentationInfo/themeData.dart';
 import 'youthGroup/messaging.dart';
+import 'youthGroup/threads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
           //Youth Group:
           "/seekersHomePage": (context) => const SeekersHomePage(),
           "/seekersMessaging": (context) => const SeekersMessaging(),
+          "/threads": (context) => const Threads(),
 
           //Unassigned:
           "/login": (context) => const Login(),
