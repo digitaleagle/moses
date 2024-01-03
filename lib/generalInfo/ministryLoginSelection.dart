@@ -71,7 +71,7 @@ class _MinistryLoginSelectionState extends State<MinistryLoginSelection> {
                         child: InkWell(
                           onTap: () { //Temporary testing navigation
                             if(testPrograms[3*index+2].title == "Administration") {
-                              context.go('/login');
+                              context.go('/admin');
                             } else {
                               context.go('/seekersHomePage');
                             }

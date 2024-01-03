@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moses/documentationInfo/themeData.dart';
+import 'package:moses/main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -68,12 +69,25 @@ class _HomePageState extends State<HomePage> {
 
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.login),
-              title: const Text('Login to your Ministry'),
-              onTap: () {
-                context.go("/ministryLoginSelection");
-              },
+            Visibility(
+              visible: !loginState.isLoggedIn,
+                child: ListTile(
+                  leading: const Icon(Icons.login),
+                  title: const Text('Login'),
+                  onTap: () {
+                    context.push("/login");
+                  },
+                )
+            ),
+            Visibility(
+              visible: loginState.isLoggedIn,
+              child: ListTile(
+                leading: const Icon(Icons.login),
+                title: const Text('Login to your Ministry'),
+                onTap: () {
+                  context.push("/ministryLoginSelection");
+                },
+              ),
             ),
             ListTile(
               leading: const Icon(Icons.info),
