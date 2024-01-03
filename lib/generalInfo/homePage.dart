@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.login),
               title: const Text('Login to your Ministry'),
               onTap: () {
-                context.go("/ministryLoginSelection");
+                context.push("/ministryLoginSelection");
               },
             ),
             ListTile(
