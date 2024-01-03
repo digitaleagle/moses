@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moses/documentationInfo/themeData.dart';
 
 class SeekersHomePage extends StatefulWidget {
@@ -58,7 +59,7 @@ class _SeekersHomePageState extends State<SeekersHomePage> {
               leading: const Icon(Icons.message),
               title: const Text('Messaging'),
               onTap: () {
-                Navigator.pushNamed(context, '/seekersMessaging');
+                context.go('/seekersMessaging');
               },
             ),
             ListTile(

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moses/documentationInfo/themeData.dart';
 
 class HomePage extends StatefulWidget {
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.login),
               title: const Text('Login to your Ministry'),
               onTap: () {
-                Navigator.pushNamed(context, '/ministryLoginSelection');
+                context.go("/ministryLoginSelection");
               },
             ),
             ListTile(

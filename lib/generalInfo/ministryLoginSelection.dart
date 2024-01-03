@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moses/documentationInfo/temporaryTestData.dart';
 
 class MinistryLoginSelection extends StatefulWidget {
@@ -43,7 +44,7 @@ class _MinistryLoginSelectionState extends State<MinistryLoginSelection> {
                       child: Card(
                         child: InkWell(
                           onTap: () { //Temporary testing navigation
-                            Navigator.pushNamed(context, '/seekersHomePage');
+                            context.go('/seekersHomePage');
                           },
                           child: Center(child: Text(testPrograms[3*index].title)),
                         ),
@@ -56,7 +57,7 @@ class _MinistryLoginSelectionState extends State<MinistryLoginSelection> {
                       child: 3*index+1 >= testPrograms.length ? null: Card(
                         child: InkWell(
                           onTap: () { //Temporary testing navigation
-                            Navigator.pushNamed(context, '/seekersHomePage');
+                            context.go('/seekersHomePage');
                           },
                           child: Center(child: Text(testPrograms[3*index+1].title)),
                         ),
@@ -70,9 +71,9 @@ class _MinistryLoginSelectionState extends State<MinistryLoginSelection> {
                         child: InkWell(
                           onTap: () { //Temporary testing navigation
                             if(testPrograms[3*index+2].title == "Administration") {
-                              Navigator.pushNamed(context, '/login');
+                              context.go('/login');
                             } else {
-                              Navigator.pushNamed(context, '/seekersHomePage');
+                              context.go('/seekersHomePage');
                             }
                           },
                           child: Center(child: Text(testPrograms[3*index+2].title)),
