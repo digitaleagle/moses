@@ -54,8 +54,8 @@ class MyNewGoRouterApp extends StatelessWidget {
           builder: (context, state) => const SeekersMessaging(),
         ),
         GoRoute(
-          path: "/threads",
-          builder: (context, state) => const Threads(),
+          path: "/threads/:threadID",
+          builder: (context, state) => Threads(state),
         ),
         GoRoute(
           path: "/login",
@@ -66,37 +66,37 @@ class MyNewGoRouterApp extends StatelessWidget {
   }
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Moses',
-        theme: ThemeData(
-          primarySwatch: ThemeColors().primary,
-        ),
-
-        initialRoute: "/homePage",
-        routes: {
-          //General Information:
-          "/homePage": (context) => const HomePage(),
-          "/ministryLoginSelection": (context) => const MinistryLoginSelection(),
-
-          //Youth Group:
-          "/seekersHomePage": (context) => const SeekersHomePage(),
-          "/seekersMessaging": (context) => const SeekersMessaging(),
-          "/threads": (context) => const Threads(),
-
-          //Unassigned:
-          "/login": (context) => const Login(),
-        }
-    );
-  }
-}
+// class MyApp extends StatefulWidget {
+//   const MyApp({Key? key}) : super(key: key);
+//
+//   @override
+//   State<MyApp> createState() => _MyAppState();
+// }
+//
+// class _MyAppState extends State<MyApp> {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         title: 'Moses',
+//         theme: ThemeData(
+//           primarySwatch: ThemeColors().primary,
+//         ),
+//
+//         initialRoute: "/homePage",
+//         routes: {
+//           //General Information:
+//           "/homePage": (context) => const HomePage(),
+//           "/ministryLoginSelection": (context) => const MinistryLoginSelection(),
+//
+//           //Youth Group:
+//           "/seekersHomePage": (context) => const SeekersHomePage(),
+//           "/seekersMessaging": (context) => const SeekersMessaging(),
+//           "/threads": (context) => const Threads(),
+//
+//           //Unassigned:
+//           "/login": (context) => const Login(),
+//         }
+//     );
+//   }
+// }

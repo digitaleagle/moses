@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/src/state.dart';
 import 'package:moses/documentationInfo/themeData.dart';
 
 import 'documentation.dart';
 
 class Threads extends StatefulWidget {
-  const Threads({Key? key}) : super(key: key);
+  GoRouterState state;
+  Threads(this.state, {Key? key}) : super(key: key);
 
   @override
   State<Threads> createState() => _ThreadsState();
@@ -28,6 +30,8 @@ class _ThreadsState extends State<Threads> {
     //List is temporarily hardcoded.
     //List needs to load list of message threads from database.
     List testList = [1,2,3];
+
+    var threadID = widget.state.pathParameters["threadID"];
 
     return Scaffold(
       appBar: AppBar(
@@ -55,7 +59,7 @@ class _ThreadsState extends State<Threads> {
                       itemBuilder: (_, index) {
                         //For now, the list of message threads is hardcoded.
                         return ListTile(
-                          title: Text(snapshot.data![index].name),
+                          title: Text(snapshot.data![index].name + "; Thread: $threadID"),
                           subtitle: Text(snapshot.data![index].description),
                         );
                       },
