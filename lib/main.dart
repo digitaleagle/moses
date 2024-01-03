@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moses/login_state.dart';
 import 'firebase_options.dart';
 import 'package:moses/generalInfo/homePage.dart';
 import 'package:moses/youthGroup/seekersHomePage.dart';
@@ -11,6 +12,9 @@ import 'package:moses/generalInfo/ministryLoginSelection.dart';
 import 'package:moses/documentationInfo/themeData.dart';
 import 'youthGroup/messaging.dart';
 import 'youthGroup/threads.dart';
+
+// Global login state
+var loginState = LoginState();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

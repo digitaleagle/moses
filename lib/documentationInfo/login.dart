@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moses/main.dart';
 import 'themeData.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -125,7 +126,9 @@ class _LoginState extends State<Login> {
           email: user.text,
           password: pass.text,
       );
-      context.pushNamed('/homePage').then((value) => setState(() {user.text = ''; pass.text = '';}));
+      loginState.isLoggedIn = true;
+      loginState.userName = user.text;
+      context.go("/homePage");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
