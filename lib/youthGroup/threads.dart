@@ -41,7 +41,7 @@ class _ThreadsState extends State<Threads> {
         ],
       ),
 
-      body: FutureBuilder<List<ThreadIndicator>>(
+      body: FutureBuilder<ThreadInfo>(
           future: loadFirebaseThreads(),
           builder: (context, snapshot) {
             if(snapshot.hasError) {
@@ -49,19 +49,7 @@ class _ThreadsState extends State<Threads> {
             }
             if(snapshot.hasData && snapshot.data != null) {
               return Center(
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    child: ListView.builder(
-                      itemBuilder: (_, index) {
-                        //For now, the list of message threads is hardcoded.
-                        return ListTile(
-                          title: Text(snapshot.data![index].name),
-                          subtitle: Text(snapshot.data![index].description),
-                        );
-                      },
-                      itemCount: snapshot.data!.length,
-                    ),
-                  )
+
               );
             }
             return const CircularProgressIndicator();
@@ -70,7 +58,7 @@ class _ThreadsState extends State<Threads> {
     );
   }
 
-  Future<List<ThreadIndicator>> loadFirebaseThreads() async {
+  Future<ThreadInfo> loadFirebaseThreads() async {
     // Used the read section from https://firebase.google.com/docs/firestore/quickstart#dart
     // Another good resource: https://www.youtube.com/watch?v=DqJ_KjFzL9I
 
@@ -78,20 +66,14 @@ class _ThreadsState extends State<Threads> {
     //       won't worry about fixing it for now.
     final docSnap = await _db.collection("seekers").doc("messaging").get();
     var data = docSnap.data();
-    List<ThreadIndicator> output = [];
-    for(int i = 0; i < data!['threads'].length; i++) {
-      ThreadIndicator newThreadIndicator = ThreadIndicator(
-        data['threads'][i]['name'],
-        data['threads'][i]['description'],
-      );
-      output.add(newThreadIndicator);
-    }
+    ThreadInfo output = ThreadInfo('', '', []);
     return output;
   }
 }
 
-class ThreadIndicator {
+class ThreadInfo {
   String name;
   String description;
-  ThreadIndicator(this.name, this.description);
+  List<Message> message;
+  ThreadInfo(this.name, this.description, this.message);
 }

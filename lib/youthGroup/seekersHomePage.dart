@@ -58,7 +58,8 @@ class _SeekersHomePageState extends State<SeekersHomePage> {
               leading: const Icon(Icons.message),
               title: const Text('Messaging'),
               onTap: () {
-                Navigator.pushNamed(context, '/seekersMessaging');
+                //Navigator.pushNamed(context, '/seekersMessaging');
+                Navigator.pushNamed(context, '/threads');
               },
             ),
             ListTile(
