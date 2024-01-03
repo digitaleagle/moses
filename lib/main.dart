@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moses/admin/main_admin_screen.dart';
 import 'package:moses/login_state.dart';
 import 'firebase_options.dart';
 import 'package:moses/generalInfo/homePage.dart';
@@ -64,6 +65,10 @@ class MyNewGoRouterApp extends StatelessWidget {
         GoRoute(
           path: "/login",
           builder: (context, state) => const Login(),
+        ),
+        GoRoute(
+          path: "/admin",
+          builder: (context, state) => MainAdminScreen(),
         ),
       ]),
     );
