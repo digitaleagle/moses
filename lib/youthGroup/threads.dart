@@ -27,50 +27,81 @@ class _ThreadsState extends State<Threads> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    //List is temporarily hardcoded.
-    //List needs to load list of message threads from database.
-    List testList = [1,2,3];
+    int threadID = int.parse(widget.state.pathParameters["threadID"] ?? '0');
 
-    var threadID = widget.state.pathParameters["threadID"];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Seekers'),
-        backgroundColor: ThemeColors().seekersTheme,
-        actions: <Widget> [
-          Container(
-              padding: const EdgeInsets.all(5),
-              child: Image.asset('assets/images/seekers_logo.png')
-          )
-        ],
-      ),
-
-      body: FutureBuilder<ThreadInfo>(
-          future: loadFirebaseThreads(),
-          builder: (context, snapshot) {
-            if(snapshot.hasError) {
-              return Text("Error: ${snapshot.error}");
-            }
-            if(snapshot.hasData && snapshot.data != null) {
-              return Center(
-
-              );
-            }
-            return const CircularProgressIndicator();
+    return FutureBuilder<ThreadInfo>(
+        future: loadFirebaseThreads(threadID),
+        builder: (context, snapshot) {
+          if(snapshot.hasError) {
+            return Scaffold(body: Center(child: Text("Error: ${snapshot.error}")));
           }
-      ),
+          if(snapshot.hasData && snapshot.data != null) {
+            List<Message> messages = snapshot.data!.message;
+            Color sentColor = const Color.fromRGBO(11, 97, 208, 100);
+            Color receivedColor = const Color.fromRGBO(239, 243, 250, 100);
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(snapshot.data!.name),
+                backgroundColor: ThemeColors().seekersTheme,
+                actions: <Widget> [
+                  Container(
+                      padding: const EdgeInsets.all(5),
+                      child: Image.asset('assets/images/seekers_logo.png')
+                  )
+                ],
+              ),
+              body: ListView.builder(
+                itemBuilder: (_, index) {
+                  //For now, the list of message threads is hardcoded.
+                  return Container(
+                    padding: EdgeInsets.fromLTRB(
+                      index.isEven ? 0: width*0.333,
+                      0,
+                      index.isEven ? width*0.333: 0,
+                      10
+                    ),
+                    child: SizedBox(
+                      width: width*0.667,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: index.isOdd ? sentColor: receivedColor,
+                        ),
+                        child: Text(
+                          messages[index].message,
+                          textAlign: index.isEven ? TextAlign.left: TextAlign.right,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                itemCount: messages.length,
+              ),
+            );
+          }
+          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        }
     );
   }
 
-  Future<ThreadInfo> loadFirebaseThreads() async {
+  Future<ThreadInfo> loadFirebaseThreads(int index) async {
     // Used the read section from https://firebase.google.com/docs/firestore/quickstart#dart
     // Another good resource: https://www.youtube.com/watch?v=DqJ_KjFzL9I
-
-    // Note: this was supposed to say "front-page", but I mistyped it.  You can't rename, so I
-    //       won't worry about fixing it for now.
     final docSnap = await _db.collection("seekers").doc("messaging").get();
     var data = docSnap.data();
-    ThreadInfo output = ThreadInfo('', '', []);
+    var newThread = data!['threads'][index];
+    List<Message> tempMessages = [];
+    for(var message in newThread['messages']) {
+      Message newMessage = Message(
+        message['from'],
+        message['message']
+      );
+      tempMessages.add(newMessage);
+    }
+    ThreadInfo output = ThreadInfo(
+      newThread['name'],
+      newThread['description'],
+      tempMessages
+    );
     return output;
   }
 }

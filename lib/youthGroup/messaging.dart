@@ -77,9 +77,6 @@ class _SeekersMessagingState extends State<SeekersMessaging> {
   Future<List<ThreadIndicator>> loadFirebaseThreads() async {
     // Used the read section from https://firebase.google.com/docs/firestore/quickstart#dart
     // Another good resource: https://www.youtube.com/watch?v=DqJ_KjFzL9I
-
-    // Note: this was supposed to say "front-page", but I mistyped it.  You can't rename, so I
-    //       won't worry about fixing it for now.
     final docSnap = await _db.collection("seekers").doc("messaging").get();
     var data = docSnap.data();
     List<ThreadIndicator> output = [];
