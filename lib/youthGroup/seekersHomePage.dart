@@ -59,7 +59,7 @@ class _SeekersHomePageState extends State<SeekersHomePage> {
               leading: const Icon(Icons.message),
               title: const Text('Messaging'),
               onTap: () {
-                context.go('/seekersMessaging');
+                context.push('/seekersMessaging');
               },
             ),
             ListTile(

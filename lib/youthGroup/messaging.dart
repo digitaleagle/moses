@@ -57,7 +57,7 @@ class _SeekersMessagingState extends State<SeekersMessaging> {
                       //For now, the list of message threads is hardcoded.
                       return ListTile(
                         onTap: () {
-                          context.go("/threads/$index");
+                          context.push("/threads/$index");
                         },
                         title: Text(snapshot.data![index].name),
                         subtitle: Text(snapshot.data![index].description),

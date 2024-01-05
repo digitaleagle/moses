@@ -14,6 +14,7 @@ class Threads extends StatefulWidget {
 }
 
 class _ThreadsState extends State<Threads> {
+  TextEditingController message = TextEditingController();
 
   late FirebaseFirestore _db;
   @override
@@ -50,37 +51,141 @@ class _ThreadsState extends State<Threads> {
                   )
                 ],
               ),
-              body: ListView.builder(
-                itemBuilder: (_, index) {
-                  //For now, the list of message threads is hardcoded.
-                  return Container(
-                    padding: EdgeInsets.fromLTRB(
-                      index.isEven ? 0: width*0.333,
-                      0,
-                      index.isEven ? width*0.333: 0,
-                      10
+              body: Stack(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(10, 3, 10, 0),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (_, index) {
+                        //For now, the list of message threads is hardcoded.
+                        return Align(
+                          alignment: index.isEven ? Alignment.topLeft: Alignment.topRight,
+                          child: Container(
+                            constraints: BoxConstraints(maxWidth: (width-20)*0.667),
+                            child: SizedBox(
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                  color: index.isOdd ? sentColor: receivedColor,
+                                ),
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Text(
+                                    messages[index].message,
+                                    textAlign: index.isEven ? TextAlign.left: TextAlign.right,
+                                    style: TextStyle(color: index.isEven ? Colors.black: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: messages.length,
                     ),
-                    child: SizedBox(
-                      width: width*0.667,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: index.isOdd ? sentColor: receivedColor,
-                        ),
-                        child: Text(
-                          messages[index].message,
-                          textAlign: index.isEven ? TextAlign.left: TextAlign.right,
-                        ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      child: SizedBox(
+                        width: width-20,
+                        height: 50,
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: TextField(
+                                  onSubmitted: (value) {
+                                    if(value.isNotEmpty) {
+                                      sendText(messages, threadID);
+                                    }
+                                  },
+                                  textAlignVertical: TextAlignVertical.center,
+                                  //cursorColor: theme,
+                                  decoration: InputDecoration(
+                                    //iconColor: theme,
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                                    //floatingLabelStyle: TextStyle(color: theme),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      //borderSide: BorderSide(color: theme!),
+                                    ),
+                                    labelText: 'Text message',
+                                  ),
+                                  controller: message,
+                                ),
+                              ),
+                              const SizedBox(width: 10,),
+                              SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: Stack(
+                                  children: [
+                                    Center(
+                                      child: SizedBox(
+                                        height: 50,
+                                        width: 50,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            if(message.text.isNotEmpty) {
+                                              sendText(messages, threadID);
+                                            }
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: sentColor,
+                                            shape: const CircleBorder()
+                                          ),
+                                          child: const SizedBox()
+                                        ),
+                                      ),
+                                    ),
+                                    Center(
+                                      child: IconButton(
+                                        icon: const Icon(Icons.send, color: Colors.white,),
+                                        onPressed: () {
+                                          if(message.text.isNotEmpty) {
+                                            sendText(messages, threadID);
+                                          }
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )
                       ),
-                    ),
-                  );
-                },
-                itemCount: messages.length,
+                    )
+                  )
+                ],
               ),
             );
           }
           return const Scaffold(body: Center(child: CircularProgressIndicator()));
         }
     );
+  }
+
+  void sendText(List<Message> messages, int index) async {
+    //ASK DAD HOW TO READ USERNAME FOR "FROM" PROPERTY
+    Message newMessage = Message('user', message.text);
+    messages.add(newMessage);
+    List<Map<String, String>> allMessages = [];
+    for(Message text in messages) {
+      Map<String, String> tempText = {'from': text.from, 'message': text.message};
+      allMessages.add(tempText);
+    }
+
+    final docSnap = await _db.collection("seekers").doc("messaging").get();
+    var data = docSnap.data();
+    data!['threads'][index]['messages'] = allMessages;
+    FirebaseFirestore.instance.collection("seekers").doc("messaging").set(data);
+    message.text = '';
+    setState(() {});
   }
 
   Future<ThreadInfo> loadFirebaseThreads(int index) async {
